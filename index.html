@@ -37,6 +37,7 @@
             <div v-if="isVisible" class = "box"><</div><!-- can use v-show if you want it to render on DOM, but not show -->
             <div v-else-if="isVisible2" class = "box two"><</div>
             <div v-else class = "box three"><</div>
+            <test-box v-if = "isVisible"></test-box>
         </div>
 
         <script src="https://unpkg.com/vue@next"></script>
@@ -53,9 +54,13 @@
                     toggleBox() {
                         this.isVisible = !this.isVisible
                     },
+                    
                     greet(greeting){
                         console.log(greeting)
                     }
+                },
+                updated(){//triggered when something is updated
+                    console.log('updated')
                 }
             })
             // create self contained app components 
@@ -120,6 +125,23 @@
                 //         inputValue: ''
                 //     }
                 // }
+            })
+            app.component('test-box', {
+                template: `
+                    <div class = "box"></div>
+                `,
+                // lifecycle hooks used to authorize, 
+                //to pull data(API calls), 
+                //initailzie events,clean up data 
+                created(){
+                    console.log('created')
+                },
+                mounted(){
+                    console.log('mounted')
+                },
+                unmounted(){
+                    console.log('unmounted')
+                }
             })
             app.mount('#app')
         </script>
